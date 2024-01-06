@@ -7,7 +7,7 @@ scMulan/.ipynb_checkpoints
 scMulan/utils/__pycache__
 scMulan/reference/GeneSymbolUniform/__pycache__
 scMulan/reference/GeneSymbolUniform/.ipynb_checkpoints
-
+update.sh
 
 # except
 !Data/README.md

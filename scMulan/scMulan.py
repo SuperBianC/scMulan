@@ -2,7 +2,7 @@ import torch
 import os
 import sys
 from .model.model import MulanConfig, scMulanModel
-from .model.model_kvcache import cellGPTModel_kv
+from .model.model_kvcache import scMulanModel_kv
 import torch.nn.functional as F
 from .utils.hf_tokenizer import scMulanTokenizer
 import scipy.sparse
@@ -41,14 +41,13 @@ class scMulan:
     def data_preprocess(self,):
 
         # sparse check
-        self.adata_sparse = False #scipy.sparse.issparse(self.adata.X)
-        # get COO matrix for analysis
-        if self.adata_sparse:
-            self.adata_matrix = self.adata.X.tocoo()
-        else:
-            print('adata is not sparse, use dense matrix and dataframe')
+        # self.adata_sparse = False #scipy.sparse.issparse(self.adata.X) # TODO use sparsity
+        # # get COO matrix for analysis
+        # if self.adata_sparse:
+        #     self.adata_matrix = self.adata.X.tocoo()
+        # else:pass
+            #print('adata is not sparse, use dense matrix and dataframe')
             # self.adata_matrix = self.adata.X.toarray()
-
         cellDFHVG = pd.DataFrame(self.adata.X.toarray(), columns = self.mulan_gene_set)
         cellDFHVG.index = list(self.adata.obs.index)
         self.adata_matrix = cellDFHVG
@@ -57,20 +56,10 @@ class scMulan:
 
 
     def get_gene_expression_dict(self, i, matrix):
-        # FIXME .tocoo()是否必要？
-        # if self.adata_sparse:
-        #     cell_data = matrix.getrow(i).tocoo()
-        #     cell_expression_dict = {self.mulan_gene_set[j]: cell_data.data[k] for k, j in enumerate(cell_data.col)}
-        #     return cell_expression_dict
-        if True:
-            genes_series = matrix.loc[i]
-            expressed_genes = genes_series[genes_series > 0].index.tolist()
-            expr_values = genes_series[expressed_genes].values
-            cell_expression_dict = {gene: expr_value for gene, expr_value in zip(expressed_genes, expr_values)}
-            return cell_expression_dict
-
-        cell_expression_dict = {self.mulan_gene_set[i]: expr for i, expr in enumerate(matrix[i]) if expr != 0}
-
+        genes_series = matrix.loc[i]
+        expressed_genes = genes_series[genes_series > 0].index.tolist()
+        expr_values = genes_series[expressed_genes].values
+        cell_expression_dict = {gene: expr_value for gene, expr_value in zip(expressed_genes, expr_values)}
         return cell_expression_dict
     
     def prepare_gene_expression_codings(self, i, matrix):
@@ -305,7 +294,7 @@ def model_inference(ckp_path: str,
     ckp = torch.load(ckp_path, map_location='cpu')
     gptconf = MulanConfig(**ckp['model_args'])
     if kv_cache:
-        model = cellGPTModel_kv(gptconf)
+        model = scMulanModel_kv(gptconf)
     else:
         model = scMulanModel(gptconf)
     model = model.cuda()

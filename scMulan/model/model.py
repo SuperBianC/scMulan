@@ -33,6 +33,7 @@ class CausalSelfAttention(nn.Module):
         self.n_head = config.n_head
         self.n_embd = config.n_embd
         self.dropout = config.dropout
+        self.config = config
 
     def forward(self, x):
         B, T, C = x.size() # batch size, sequence length, embedding dimensionality (n_embd)
@@ -117,7 +118,7 @@ class scMulanModel(nn.Module):
         if 'LOCAL_RANK' not in os.environ or os.environ['LOCAL_RANK'] == '0':
             logger.info("number of parameters: %.2fM" % (self.get_num_params()/1e6,))
         
-    def get_num_params(self): ## we don't have wpe
+    def get_num_params(self): 
         n_params = sum(p.numel() for p in self.parameters())
         return n_params
 

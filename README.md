@@ -19,7 +19,7 @@ pip install -r requirements.txt
 ```
 
 ## Quick start
-download the [ckpt file](https://cloud.tsinghua.edu.cn/f/2250c5df51034b2e9a85/?dl=1) and put it under ./ckpt/
+download the [ckpt file](https://cloud.tsinghua.edu.cn/f/2250c5df51034b2e9a85/?dl=1) and put it under ./ckpt/  
 Prepare your test adata file, and start using scMulan
 
 ## Tutorials
@@ -31,7 +31,7 @@ You can easily use your adata and get analysis from scMulan.
 
 ## Acknowledgements
 
-- [minGPT](https://github.com/karpathy/minGPT)ls
+- [minGPT](https://github.com/karpathy/minGPT)
 - [flash-attention](https://github.com/HazyResearch/flash-attention)
 - [scanpy](https://github.com/scverse/scanpy)
 - [scib](https://github.com/theislab/scib)

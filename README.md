@@ -30,7 +30,7 @@ You can easily use your adata and get analysis from scMulan.
 
 ## Acknowledgements
 
--[minGPT](https://github.com/karpathy/minGPT)
--[flash-attention](https://github.com/HazyResearch/flash-attention)
--[scanpy](https://github.com/scverse/scanpy)
--[scib](https://github.com/theislab/scib)
+- [minGPT](https://github.com/karpathy/minGPT)
+- [flash-attention](https://github.com/HazyResearch/flash-attention)
+- [scanpy](https://github.com/scverse/scanpy)
+- [scib](https://github.com/theislab/scib)

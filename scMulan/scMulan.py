@@ -25,18 +25,6 @@ class scMulan:
         self.n_express_level = n_express_level
         self.mulan_cell_type_entities = list(self.meta_info['cell_type'] | self.meta_info['MCT'])
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-       
-
-    # def data_preprocess(self,):
-
-    #     # sparse check
-    #     self.adata_sparse = scipy.sparse.issparse(self.adata.X)
-    #     # get COO matrix for analysis
-    #     if self.adata_sparse:
-    #         self.adata_matrix = self.adata.X.tocoo()
-    #     else:
-    #         print('adata is not sparse, use dense matrix')
-    #         self.adata_matrix = self.adata.X
 
     def data_preprocess(self,):
 

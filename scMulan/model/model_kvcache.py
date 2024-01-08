@@ -47,7 +47,7 @@ class CausalSelfAttention(nn.Module):
             past_key, past_value = layer_past
             k = torch.cat((past_key, k), dim=2)
             v = torch.cat((past_value, v), dim=2)
-        B, nh, T, hs = k.size() lf.n_head, C // self.n_head).transpose(1, 2) # (B, nh, T, hs)
+        B, nh, T, hs = k.size()
         
         if Tq < T:
             y = torch.nn.functional.scaled_dot_product_attention(q, k, v, attn_mask=None, dropout_p=self.dropout if self.training else 0, is_causal=False)
@@ -58,6 +58,8 @@ class CausalSelfAttention(nn.Module):
         y = self.resid_dropout(self.c_proj(y))
         return y, (k, v)
 
+def new_gelu(x):
+    return 0.5 * x * (1.0 + torch.tanh(math.sqrt(2.0 / math.pi) * (x + 0.044715 * torch.pow(x, 3.0))))
 
 class MLP(nn.Module):
 

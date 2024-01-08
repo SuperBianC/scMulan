@@ -1,5 +1,5 @@
 from .model.model import MulanConfig, scMulanModel
-from .model.model_kvcache import cellGPTModel_kv
+from .model.model_kvcache import scMulanModel_kv
 from .utils.hf_tokenizer import scMulanTokenizer
 from .scMulan import model_inference
 from .reference.GeneSymbolUniform.pyGSUni import  GeneSymbolUniform

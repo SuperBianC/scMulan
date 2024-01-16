@@ -213,8 +213,8 @@ class scMulan:
             results = self.process_data_in_parallel(self.cell_type_and_embd_process_subdata, n_process, save_dir)
         else:
             results = []
-            for i in tqdm(range(self.adata.n_obs), desc="⏳ Collecting cell embeddings for each cell"):
-                ct, hidden = self.cell_type_and_embd_process_subdata(i, self.adata_matrix, **kwargs)
+            for idx in tqdm(self.adata.obs_names, desc="⏳ Collecting cell embeddings for each cell"):
+                ct, hidden = self.get_cell_type_and_embd(idx, self.adata_matrix, **kwargs)
                 results.append([ct, hidden])
 
         cell_types = [pair[0] for pair in results]

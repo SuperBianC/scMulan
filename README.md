@@ -5,7 +5,7 @@ Welcome to the repository for scMulan_v1, featuring our upcoming work: "scMulan:
 
 
 ## Introducing scMulan 
-scMulan is a groundbreaking foundation model for the analysis of single-cell transcriptomics.
+scMulan is a groundbreaking foundation model for the analysis of single-cell transcriptomics.  
 Features:
 - **Zero-shot Cell Type Annotation:** Effortlessly classify cell types without prior training or reference mapping.
 - **Zero-shot Batch Integration:** Seamlessly integrate data from diverse batches.
@@ -27,7 +27,9 @@ We provided a tutorial of using scMulan for [cell type annotation (see tutorial)
 Currently, scMulan supports zero-shot annotation of human cell types in seven organs including Heart, Lung, Liver, Bone marrow, Blood, Brain, and Thymus.
 
 It could also be used to get cell embeddings for [batch integration (see tutorial)](/Tutorial-integration.ipynb).
-You can easily use your adata and get analysis from scMulan.
+You can easily use your adata and get analysis from scMulan.  
+
+scMulan now supports inference on npu.
 
 ## Acknowledgements
 

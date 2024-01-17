@@ -12,3 +12,5 @@ update.sh
 # except
 !Data/README.md
 !ckpt/README.md
+*pyc*
+*ipynb_checkpoints

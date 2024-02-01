@@ -173,8 +173,10 @@ class scMulan:
         with torch.no_grad():
             expressed_genes, binned_expr = self.prepare_gene_expression_codings(i, matrix)
             ec_prefix, ec_binned_expr, prefix_len_with_task_token = self.make_encoded_annotation_prompt_one_cell(expressed_genes, binned_expr)
-            prompt_entities = torch.tensor(ec_prefix[:prefix_len_with_task_token]).unsqueeze(0).cuda()
-            prompt_values = torch.tensor(ec_binned_expr[:prefix_len_with_task_token]).unsqueeze(0).cuda()
+            prompt_entities = torch.tensor(ec_prefix[:prefix_len_with_task_token]).unsqueeze(0)
+            prompt_entities = prompt_entities.cuda() if torch.cuda.is_available() else prompt_entities
+            prompt_values = torch.tensor(ec_binned_expr[:prefix_len_with_task_token]).unsqueeze(0)
+            prompt_values = prompt_values.cuda() if torch.cuda.is_available() else prompt_values
             generated_entities, generated_values, hidden = self.model.generate_cellGenesis(prompt_entities,prompt_values, 
                                                                                             max_new_tokens= prefix_len_with_task_token + 3,
                                                                                             top_k=1, return_hidden=True, **kwargs) # +3 is passing CT1, CT2,<#E#>
@@ -285,7 +287,7 @@ def model_inference(ckp_path: str,
         model = scMulanModel_kv(gptconf)
     else:
         model = scMulanModel(gptconf)
-    model = model.cuda()
+    model = model.cuda() if torch.cuda.is_available() else model
     model.load_state_dict(ckp['model'])
     model.eval()
     model.hidden_dim = ckp['model_args']['n_embd']
